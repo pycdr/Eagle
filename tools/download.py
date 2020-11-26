@@ -11,6 +11,7 @@ class Downloader:
 		self.download = True
 		self.thread = Thread(self.get)
 		self.thread.start()
+		self.finished = False
 	def get(self):
 		self.uopen = urlopen(self.url)
 		self.size = int(self.uopen.info().getheaders("Content-Lenght")[0])
@@ -21,3 +22,4 @@ class Downloader:
 			self.downloaded_size += len(buff)
 			f.write(buff)
 		self.out_file.close()
+		self.finished = True
