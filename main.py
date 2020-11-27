@@ -22,7 +22,7 @@ if not is_url(args.url):
 	exit()
 
 download = Downloader(args.url, 2**16, output = args.output)
-progress = ProgressBar(download)
+progress = ProgressBar(download, console)
 
 try:
 	download.start()
