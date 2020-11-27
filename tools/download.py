@@ -23,6 +23,6 @@ class Downloader:
 			if not buff:
 				break
 			self.downloaded_size += len(buff)
-			f.write(buff)
+			self.out_file.write(buff)
 		self.out_file.close()
 		self.finished = True
