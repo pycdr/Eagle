@@ -3,6 +3,7 @@ from tools.progressbar import ProgressBar
 from rich.console import Console
 from argparse import ArgumentParser
 from validators import url as is_url
+from time import sleep
 
 console = Console()
 parser = ArgumentParser(description = "Eagle - a download manager based on CLI")
@@ -24,4 +25,6 @@ download = Downloader(args.url, 2**16, output = args.output)
 progress = ProgressBar(download)
 
 download.start()
+while not download.ready:
+	sleep(.5)
 progress.start()
