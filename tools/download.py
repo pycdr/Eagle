@@ -5,6 +5,7 @@ class Downloader:
 	def __init__(self, url, block_size, output = None):
 		self.url = url
 		self.out_path = output or url.split("/")[-1]
+		self.block_size = block_size
 	def start(self):
 		self.downloaded_size = 0
 		self.out_file = open(self.out_path, "wb")
