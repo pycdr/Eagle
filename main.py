@@ -17,10 +17,10 @@ args = parser.parse_args()
 if not is_url(args.url):
 	console.log("[red]Error: please give a valid url.[/red]")
 	if not args.url.startswith("https://") or not args.url.startswith("http://"):
-		console.print("[yellow]maybe you meant http[s]://" + url + "[/yellow]")
+		console.print("[yellow]maybe you meant http[s]://" + args.url + "[/yellow]")
 	exit()
 
-download = Downloader(url, 2**16, output = args.output)
+download = Downloader(args.url, 2**16, output = args.output)
 progress = ProgessBar(download)
 
 download.start()
