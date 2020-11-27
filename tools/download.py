@@ -16,7 +16,7 @@ class Downloader:
 		self.finished = False
 	def get(self):
 		self.uopen = urlopen(self.url)
-		self.size = int(self.uopen.info().getheaders("Content-Lenght")[0])
+		self.size = int(self.uopen.getheader("Content-Length"))
 		self.ready = True
 		while self.download:
 			buff = self.uopen.read(self.block_size)

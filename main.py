@@ -24,7 +24,11 @@ if not is_url(args.url):
 download = Downloader(args.url, 2**16, output = args.output)
 progress = ProgressBar(download)
 
-download.start()
+try:
+	download.start()
+except Exception as err:
+	console.log("[red]", err, "[/red]")
+	exit()
 while not download.ready:
 	sleep(.5)
 progress.start()
