@@ -18,7 +18,10 @@ class Downloader:
 	def get(self):
 		try:
 			self.uopen = urlopen(self.url)
-			self.size = int(self.uopen.getheader("Content-Length"))
+			try:
+				self.size = int(self.uopen.getheader("Content-Length"))
+			except TypeError:
+				self.console.log("[red]Error: error while getting file size[/red]")
 			self.ready = True
 			while self.download:
 				buff = self.uopen.read(self.block_size)
@@ -28,7 +31,7 @@ class Downloader:
 				self.out_file.write(buff)
 		except Exception as err:
 			self.console.log("[red]"+str(err)+"[/red]")
-			self.thread.join()
+			return
 		finally:
 			self.out_file.close()
 			self.finished = True
