@@ -1,4 +1,5 @@
 from rich.progress import Progress
+from time import sleep
 
 class ProgressBar:
 	def __init__(self, downloader_obj, console):
@@ -12,3 +13,4 @@ class ProgressBar:
 				adv = self.dl_obj.downloaded_size - self.csize
 				self.progress.update(self.task, advance = adv)
 				self.csize = self.dl_obj.downloaded_size
+				#sleep(.1)

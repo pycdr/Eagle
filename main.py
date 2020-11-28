@@ -12,6 +12,8 @@ parser.add_argument("url",
 	help = "the url that file will be downloaded from")
 parser.add_argument("-o", "--output", required = False,
 	help = "the path where the file will be saved there")
+parser.add_argument("-b", "--block", required = True,
+	help = "the block size for download process")
 
 args = parser.parse_args()
 
@@ -20,15 +22,19 @@ if not is_url(args.url):
 	if not args.url.startswith("https://") or not args.url.startswith("http://"):
 		console.print("[yellow]maybe you meant http(s)://" + args.url + "[/yellow]")
 	exit()
+if not args.block.isnumeric():
+	console.log("[red]Error: please give a valid block size.[/red]")
+	exit()
 
-download = Downloader(args.url, 2**16, output = args.output)
+download = Downloader(args.url, int(args.block), console, output = args.output)
 progress = ProgressBar(download, console)
 
 try:
 	download.start()
+	while not download.ready and not download.finished:
+		sleep(.5)
+	if download.ready and not download.finished:
+		progress.start()
 except Exception as err:
-	console.log("[red]", err, "[/red]")
+	console.log("[red]"+str(err)+"[/red]")
 	exit()
-while not download.ready:
-	sleep(.5)
-progress.start()
